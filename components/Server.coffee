@@ -63,7 +63,7 @@ for each HTTP request it receives"
     # Start listening at the designated ports
     server.listen port, (err) =>
       # Report port binding error
-      ecstatic root: path.dirname() + "/public"
+      #ecstatic root: path.dirname() + "/public"
       if err
         unless @outPorts.error.isAttached()
           throw err
