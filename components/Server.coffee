@@ -1,6 +1,8 @@
 noflo = require "noflo"
 http = require "http"
 uuid = require "node-uuid"
+ecstatic = require 'ecstatic'
+path = require 'path'
 
 class Server extends noflo.Component
   description: "This component receives a port and host, and initializes
@@ -12,6 +14,7 @@ for each HTTP request it receives"
     @connections = {}
     @inPorts =
       listen: new noflo.Port 'int'
+      #static_content: new noflo.Port 'string'
       close: new noflo.Port 'int'
     @outPorts =
       request: new noflo.Port 'object'
@@ -60,6 +63,7 @@ for each HTTP request it receives"
     # Start listening at the designated ports
     server.listen port, (err) =>
       # Report port binding error
+      ecstatic root: path.dirname() + "/public"
       if err
         unless @outPorts.error.isAttached()
           throw err
